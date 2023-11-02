@@ -2,6 +2,7 @@
 #include <nan.h>
 #include <array>
 #include <memory>
+#include <limits>
 #include "pf.h"
 
 namespace screeps {
@@ -60,4 +61,4 @@ NAN_MODULE_INIT(init) {
 	v8::Isolate* isolate = v8::Isolate::GetCurrent();
 	InitForContext(isolate, isolate->GetCurrentContext(), target);
 }
-NODE_MODULE(native, init);
+NAN_MODULE_WORKER_ENABLED(native, init);
