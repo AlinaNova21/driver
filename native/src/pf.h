@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <unordered_set>
 #include <vector>
+#include <limits>
 
 namespace screeps {
 	typedef uint32_t cost_t; // maximum: longest chebyshev distance of whole map
