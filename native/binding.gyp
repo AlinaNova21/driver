@@ -31,29 +31,34 @@
 	'targets': [
 		{
 			'target_name': 'native',
-			'cflags_cc': [ '-std=c++14', '-g' ],
+			'cflags_cc': [ '-std=c++17', '-g' ],
 			'cflags_cc!': [ '-fno-exceptions' ],
 			'xcode_settings': {
 				'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',
 				'GCC_GENERATE_DEBUGGING_SYMBOLS': 'YES',
-				'CLANG_CXX_LANGUAGE_STANDARD': 'c++14',
+				'CLANG_CXX_LANGUAGE_STANDARD': 'c++17',
 			},
 			'msvs_settings': {
 				'VCCLCompilerTool': {
 					'ExceptionHandling': '1',
 				},
 			},
-			'include_dirs': [
-				'<!(node -e "require(\'nan\')")',
-			],
+			'include_dirs': ["<!@(node -p \"require('node-addon-api').include\")"],
+      'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
 			'cflags!': [ '-fno-exceptions' ],
 			'cflags_cc!': [ '-fno-exceptions' ],
 			'conditions': [
 				[ 'OS == "win"', { 'defines': ['NOMINMAX'] } ],
 				[ 'OS == "win"',
-                    { 'defines': [ 'IVM_DLLEXPORT=__declspec(dllexport)' ] },
-                    { 'defines': [ 'IVM_DLLEXPORT=' ] },
-                ],
+						{ 'defines': [ 'IVM_DLLEXPORT=__declspec(dllexport)' ] },
+						{ 'defines': [ 'IVM_DLLEXPORT=' ] },
+				],		
+				[ 'OS=="mac"', {
+					'cflags+': ['-fvisibility=hidden'],
+					'xcode_settings': {
+						'GCC_SYMBOLS_PRIVATE_EXTERN': 'YES', # -fvisibility=hidden
+					}
+				}]
 			],
 			'sources': [
 				'src/main.cc',
