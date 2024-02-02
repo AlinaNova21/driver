@@ -7,7 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "generic-pool": "^3.4.1",
-    "isolated-vm": "^4.6.0",
+    "isolated-vm": "^4.7.2",
     "lodash": "^3.10.1",
     "nan": "^2.18.0",
     "q": "^1.4.1",
@@ -17,6 +17,6 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "install": "node-gyp rebuild -C native"
+    "install": "node-gyp rebuild -C native && npm run build"
   }
 }
